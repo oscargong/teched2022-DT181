@@ -15,7 +15,9 @@ annotate TravelService.Travel {
   to_Agency       @Common.FieldControl  : TravelStatus.fieldControl;
   to_Customer     @Common.FieldControl  : TravelStatus.fieldControl;
 
-  } actions {
+} 
+
+actions {
   rejectTravel @(
     Core.OperationAvailable : { $edmJson: { $Ne: [{ $Path: 'in/TravelStatus_code'}, 'X']}},
     Common                  : {SideEffects : {
@@ -34,25 +36,26 @@ annotate TravelService.Travel {
   );
 }
 
-annotate TravelService.Travel with @Common : {SideEffects #GoGreen : {
-  $Type            : 'Common.SideEffectsType',
-  SourceProperties : [GoGreen],
-  TargetProperties : ['TotalPrice', 'GreenFee', 'TreesPlanted']
-},
-SideEffects #BookingFee: {
-  SourceProperties: [BookingFee],
-  TargetProperties: ['TotalPrice']
-},
-SideEffects #Bookings: {
-  $Type            : 'Common.SideEffectsType',
-  SourceEntities : [to_Booking],
-  TargetProperties : ['TotalPrice']
-}};
+annotate TravelService.Travel with @Common : {
+  SideEffects #GoGreen : {
+    $Type            : 'Common.SideEffectsType',
+    SourceProperties : [GoGreen],
+    TargetProperties : ['TotalPrice', 'GreenFee', 'TreesPlanted']
+  },
+  SideEffects #BookingFee: {
+    SourceProperties: [BookingFee],
+    TargetProperties: ['TotalPrice']
+  },
+  SideEffects #Bookings: {
+    $Type            : 'Common.SideEffectsType',
+    SourceEntities : [to_Booking],
+    TargetProperties : ['TotalPrice']
+  }
+};
 
 annotate TravelService.Booking with @UI.CreateHidden : to_Travel.TravelStatus.createDeleteHidden;
 
 annotate TravelService.Booking {
-
   BookingDate   @Core.Computed;
   ConnectionID  @Common.FieldControl  : to_Travel.TravelStatus.fieldControl;
   FlightDate    @Common.FieldControl  : to_Travel.TravelStatus.fieldControl;

@@ -8,12 +8,17 @@
   },
   "dependencies": {
     "@sap/cds": "^6.8.1",
+    "@sap/cds-dk": "^6.8.1",
+    "@sap/eslint-plugin-ui5-jsdocs": "^2.0.5",
     "@sap/xssec": "^3.2.7",
+    "@sapui5/ts-types": "^1.92.2",
+    "eslint": "^7.32.0",
     "express": "^4.18.2",
     "hdb": "^0.19.1",
     "passport": "^0.6.0"
   },
   "devDependencies": {
+    "@sap/ux-specification": "UI5-1.129",
     "axios": "^1.4.0",
     "chai": "^4.3.0",
     "chai-as-promised": "^7.1.1",
@@ -24,7 +29,9 @@
   },
   "scripts": {
     "start": "cds run",
-    "test": "jest --runInBand"
+    "test": "jest --runInBand",
+    "local-watch": "PORT=4005 node './node_modules/@sap/cds-dk/bin/cds.js' watch --open managetravels/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-managetravels": "cds watch --open managetravels/webapp/index.html?sap-ui-xx-viewCache=false"
   },
   "cds": {
     "requires": {
@@ -81,5 +88,9 @@
     "testTimeout": 20000
   },
   "license": "SAP SAMPLE CODE LICENSE",
-  "private": true
+  "private": true,
+  "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610",
+  "sapux": [
+    "app/managetravels"
+  ]
 }
